@@ -6,9 +6,8 @@ import swAlert from '@sweetalert/with-react'
 import { SlideShow } from './SlideShow'
 
 
-export const Listado = () => {
+export const Listado = (props) => {
   let token = sessionStorage.getItem('token')
-
   const [movieList, setMovieList] = useState([])
 
   useEffect(() => {
@@ -37,7 +36,10 @@ export const Listado = () => {
               <div className='flex flex-col m-5 justify-center max-h-full' key={idx}>
                 <div className=' border-2 p-3 h-50 pb-5 relative z-0'>
                   <img src={`https://image.tmdb.org/t/p/w500/${oneMovie.poster_path}`} alt="..." />
-                  <button className=' rounded-full absolute right-3 top-3 outline-none text-4xl text-center'>🖤</button>
+                  <button className=' absolute right-3 top-3 text-4xl'
+                    onClick={props.addOrRemoveFromFavs}
+                    data-movie-id={oneMovie.id}
+                  >🖤</button>
                   <div>
                     <h5 className='font-bold'> {oneMovie.title.substring(0, 50)} </h5>
                     <p className='mt-3 mb-5 font-light text-base'> {oneMovie.overview.substring(0, 100)}... </p>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import swAlert from '@sweetalert/with-react'
 import { SlideShow } from './SlideShow';
 
-export const Resultados = () => {
+export const Resultados = (props) => {
     let query = new URLSearchParams(window.location.search);
     let keyword = query.get('keyword');
 
@@ -21,11 +21,11 @@ export const Resultados = () => {
             setMovieResults(moviesArray);
         })
             .catch(error => { console.log(error); })
-    },[keyword]);
+    }, [keyword]);
 
     return (
         <>
-        <SlideShow />
+            <SlideShow />
             <h2 className='text-center text-xl'>Buscaste: {keyword}</h2>
             {movieResults.length === 0 && <div className='h-screen font-bold text-4xl'><h3 className='text-center'>No hay resultados</h3></div>}
 
@@ -35,8 +35,12 @@ export const Resultados = () => {
                     movieResults.map((oneMovie, idx) => {
                         return (
                             <div className='flex flex-col m-5 justify-center max-h-full' key={idx}>
-                                <div className=' border-2 p-3 h-50 pb-5'>
+                                <div className=' border-2 p-3 h-50 pb-5 relative'>
                                     <img src={`https://image.tmdb.org/t/p/w500/${oneMovie.poster_path}`} alt="..." />
+                                        <button className='absolute right-3 top-3 outline-none text-4xl'
+                                            onClick={props.addOrRemoveFromFavs}
+                                            data-movie-id={oneMovie.id}
+                                        >🖤</button>
                                     <div>
                                         <h5 className='font-bold'> {oneMovie.title.substring(0, 50)} </h5>
                                         <p className='mt-3 mb-5 font-light text-base'> {oneMovie.overview.substring(0, 100)}... </p>
