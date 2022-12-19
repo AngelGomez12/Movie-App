@@ -7,7 +7,7 @@ export const Favoritos = (props) => {
         <>
             {!token && <Redirect to="/" />}
             <h1 className="text-center font-bold text-4xl">Mis Favoritos</h1>
-            <div className='grid grid-cols-4 gap-4 content-center p-10 items-start'>
+            <div className='grid grid-cols-4 gap-4 content-center p-10 items-start h-screen'>
                 {!props.favorites.length && <div className="">No tenes nada en favoritos</div>}
                 {
                     props.favorites.map((oneMovie, idx) => {

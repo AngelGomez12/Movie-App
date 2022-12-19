@@ -1,12 +1,13 @@
-import React from 'react'
 // import { useState , useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { Buscador } from './Buscador'
 
 export const Header = (props) => {
-  let token = sessionStorage.getItem('token')
+ 
 
   return (
+    <>
+    { props.login &&
     <header className='fixed z-50 w-full'>
       <nav className='flex bg-black h-16 text-white justify-center items-center'>
         <ul className='w-11/12 h-10 flex items-center justify-evenly'>
@@ -28,8 +29,10 @@ export const Header = (props) => {
             </span>
           </li>
         </ul>
-        {token && <Buscador />}
+        <Buscador />
       </nav>
     </header>
+    }
+    </>
   )
 }

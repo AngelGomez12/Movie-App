@@ -8,6 +8,8 @@ import { ReactComponent as FlechaDerecha } from './../img/iconmonstr-angel-right
 
 
 export const SlideShow = () => {
+    const slideShow = useRef(null)
+    const intervalSlideShow = useRef(null)
 
     const [movieList, setMovieList] = useState([])
 
@@ -26,7 +28,6 @@ export const SlideShow = () => {
     const siguiente = () => {
         if (slideShow.current.children.length > 0) {
 
-            console.log('siguiente');
             const primerElemento = slideShow.current.children[0]
 
             slideShow.current.style.transition = `300ms ease-out all`
@@ -40,6 +41,8 @@ export const SlideShow = () => {
                 slideShow.current.style.transform = `translateX(0)`
 
                 slideShow.current.appendChild(primerElemento)
+
+                slideShow.current.removeEventListener('transitionend', transicion)
             }
 
             slideShow.current.addEventListener('transitionend', transicion)
@@ -47,9 +50,40 @@ export const SlideShow = () => {
     }
 
     const anterior = () => {
-        console.log('anterior');
+        if (slideShow.current.children && slideShow.current.children.length > 0) {
+
+            const index = slideShow.current.children.length - 1
+            const ultimoElemento = slideShow.current.children[index]
+
+            slideShow.current.insertBefore(ultimoElemento, slideShow.current.firstChild)
+
+            const tamanoSlide = slideShow.current.children[0].offsetWidth
+
+            slideShow.current.style.transition = 'none'
+            slideShow.current.style.transform = `translateX(-${tamanoSlide}px)`
+
+            setTimeout(() => {
+                slideShow.current.style.transition = '300ms ease-out all'
+                slideShow.current.style.transform = `translateX(0)`
+            }, 30)
+        }
     }
-    const slideShow = useRef(null)
+
+    useEffect(() => {
+        intervalSlideShow.current = setInterval(() => {
+            siguiente()
+        }, 5000);
+
+        slideShow.current.addEventListener('mouseenter', () => {
+            clearInterval(intervalSlideShow.current)
+        })
+
+        slideShow.current.addEventListener('mouseleave', () => {
+            intervalSlideShow.current = setInterval(() => {
+                siguiente()
+            }, 5000);
+        })
+    }, [])
 
     return (
         <>
@@ -58,11 +92,10 @@ export const SlideShow = () => {
                     movieList.map((oneMovie, idx) => {
                         return (
                             <div className='flex flex-col justify-center items-center max-h-full min-w-full relative bg-blue-500' key={idx}>
-                                <h2 className='absolute text-8xl z-10 left-16 top-16 text-white'>Destacados</h2>
                                 <div className='flex flex-nowrap'>
                                     <img src={`https://image.tmdb.org/t/p/w500/${oneMovie.poster_path}`} alt="..." className='h-screen z-0' />
                                     <p className='mt-3 mb-5 font-light text-4xl absolute z-10 bottom-40 left-40 text-gray-200'> {oneMovie.overview.substring(0, 100)}... </p>
-                                    <Link to={`/detalle?movieID=${oneMovie.id}`} className='bg-sky-600 mt-3 mb-5 p-2 text-white absolute z-10 bottom-56 left-40'>More details</Link>
+                                    <Link to={`/detalle?movieID=${oneMovie.id}`} className='bg-sky-900 mt-3 mb-5 p-2 text-white absolute z-10 bottom-56 left-40 h-10 w-40 text-center'>More details</Link>
                                 </div>
                             </div>
 
