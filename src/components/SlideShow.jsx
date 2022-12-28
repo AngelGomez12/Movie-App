@@ -26,7 +26,7 @@ export const SlideShow = () => {
     }, [setMovieList]);
 
     const siguiente = () => {
-        if (slideShow.current.children.length > 0) {
+        if (slideShow.current && slideShow.current.children.length > 0) {
 
             const primerElemento = slideShow.current.children[0]
 

@@ -8,24 +8,11 @@ import { Footer } from "./components/Footer";
 import { Detalle } from './components/Detalle';
 import { Resultados } from './components/Resultados';
 import { Favoritos } from './components/Favoritos';
+import { Register } from './components/Register';
 
 
 function App() {
-  let token = sessionStorage.getItem('token')
   const [favorites, setFavorites] = useState([])
-  const [login, setLogin] = useState()
-
-  const loginEnter = () => {
-  let token = sessionStorage.getItem('token')
-  setLogin(token)
-    console.log(token);
-  }
-  
-  // useEffect(() => {
-  //   if (token) {
-  //     setLogin(token)
-  //   }
-  // }, [token])
 
   useEffect(() => {
     const favsInLocal = localStorage.getItem('favs')
@@ -76,10 +63,12 @@ function App() {
   }
   return (
     <div className='overflow-hidden'>
-      <Header favorites={favorites} login={login}/>
+      <Header favorites={favorites} />
       <Switch>
-        <Route exact path="/" render={() => <Login onClick={loginEnter} />} />
+        <Route exact path="/" component={Login} />
         <Route path="/listado" render={(props) => <Listado addOrRemoveFromFavs={addOrRemoveFromFavs} {...props} />} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
         <Route path="/detalle" component={Detalle} />
         <Route path="/resultados" render={(props) => <Resultados addOrRemoveFromFavs={addOrRemoveFromFavs} {...props} />} />
         <Route path="/favoritos" render={(props) => <Favoritos favorites={favorites} addOrRemoveFromFavs={addOrRemoveFromFavs} {...props} />} />

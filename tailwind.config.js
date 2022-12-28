@@ -5,9 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // backgroundImage: {
-      //   'hero-pattern': `https://image.tmdb.org/t/p/w500/${oneMovie.poster_path}`,
-      // }
+      backgroundImage: {
+        'bg-movie': "url('./img/peliculas.jpg')"
+      }
     },
   },
   plugins: [],

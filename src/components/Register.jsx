@@ -1,8 +1,10 @@
+import { Formulario } from "./Formulario";
+
 export const Register = () => {
-    return ( 
-        <h2>
-            Registrarse
-        </h2>
-     );
+    return (
+        <div className='flex justify-center items-center h-screen w-screen bg-movie'> 
+            <Formulario />
+        </div>
+    );
 }
- 
+

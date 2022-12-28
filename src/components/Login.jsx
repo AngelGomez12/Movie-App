@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import axios from 'axios'
 import swAlert from '@sweetalert/with-react'
-import { useHistory, Redirect } from 'react-router-dom'
-import { Link } from 'react-router-dom'
+import { useHistory, Redirect, Link } from 'react-router-dom'
 
 export const Login = (props) => {
 
     const history = useHistory()
 
-    const {onClick} = props
+
+
 
     const submitHandler = e => {
         e.preventDefault()
@@ -49,30 +49,29 @@ export const Login = (props) => {
                 sessionStorage.setItem('token', tokenRecibido);
                 history.push('/listado')
             })
-
     }
-
-    let token = sessionStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
 
     return (
         <>
             {token && <Redirect to="/listado" />}
 
-            <div className='w-full h-screen flex justify-center items-center flex-col bg-gray-800'>
-                <div className=' h-4/5 w-4/5 flex flex-col items-center justify-center bg-white'>
-                    <h2 className='font-bold text-2xl'>Formulario de login</h2>
-                    <form onSubmit={submitHandler} className='flex flex-col h-4/5 w-4/5 font-bold justify-center items-center'>
-                        <label htmlFor="" className='flex'><span>Correo Electronico:</span>
-                            <input type="text" name='email' className='border-2' />
+            <div className='w-full h-screen flex justify-center items-center flex-col bg-movie'>
+                <h2 className='absolute text-8xl font-mono top-1'>Movie App</h2>
+                <div className=' h-3/4 w-2/4 flex flex-col items-center justify-center bg-white rounded-lg shadow-2xl'>
+                    <h1 className='text-8xl'>Login</h1>
+                    <form onSubmit={submitHandler} className='flex flex-col w-1/4 h-2/4 justify-center items-center gap-4'>
+                        <label htmlFor="" className='label'><span>Email:</span>
+                            <input type="text" name='email' className='input' />
                         </label>
-                        <label htmlFor="">Contraseña:
-                            <input type="password" name='password' className='border-2' />
+                        <label htmlFor="" className='label'><span>Contraseña:</span>
+                            <input type="password" name='password' className='input' />
                         </label>
-                        <button type='submit' className='bg-gray-800 p-3 text-white mt-4' onClick={onClick}>Ingresar</button>
+                        <button type='submit' className='button'>Ingresar</button>
+                        <div className='hipervinculo'>
+                            <Link to="/register" >Registrarse </Link>
+                        </div>
                     </form>
-                    <div>
-                        <Link to="/register" className='link'>Registrarse</Link>
-                    </div>
                 </div>
             </div>
         </>

@@ -8,7 +8,7 @@ export const Footer = () => {
                 <li><a href="http://intagram.com" rel='noopenernoreferrer'>IG</a></li>
             </ul>
         </nav>
-        <p>Copyright Alkemy Challenge</p>
+        <p>Copyright Angel Gomez</p>
     </footer>
   )
 }
